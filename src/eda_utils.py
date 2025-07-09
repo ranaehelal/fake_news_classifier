@@ -3,7 +3,11 @@ import matplotlib.pyplot as plt
 from sklearn.feature_extraction.text import CountVectorizer
 from wordcloud import WordCloud
 import seaborn as sns
+from sklearn.metrics import confusion_matrix, classification_report
 
+
+MODELS_DIR = "models"
+PLOTS_DIR = "visualizations"
 def generate_wordcloud(df, label, source=None, base_dir="visualizations/wordclouds"):
     """
     Generates a WordCloud for the dataframe and saves it a
@@ -58,3 +62,42 @@ def get_top_n_words(data, n=None):
     sum_words = bag.sum(axis=0)
     words_freq = [(word, sum_words[0, idx]) for word, idx in vec.vocabulary_.items()]
     return sorted(words_freq, key=lambda x: x[1], reverse=True)[:n]
+
+
+def plot_confusion_matrix(y_true, y_pred, labels, title, save_as):
+    cm = confusion_matrix(y_true, y_pred)
+    plt.figure(figsize=(6, 5))
+    sns.heatmap(cm, annot=True, fmt="d", cmap="Blues", xticklabels=labels, yticklabels=labels)
+    plt.xlabel("Predicted")
+    plt.ylabel("True")
+    plt.title(title)
+    os.makedirs(PLOTS_DIR + "/confusion_matrices", exist_ok=True)
+    plt.savefig(f"{PLOTS_DIR}/confusion_matrices/{save_as}", bbox_inches='tight')
+    plt.close()
+    print(f"Confusion matrix saved to {PLOTS_DIR}/confusion_matrices/{save_as}")
+
+def plot_training_curves(history, save_as):
+    plt.figure(figsize=(10, 4))
+
+    # Loss
+    plt.subplot(1, 2, 1)
+    plt.plot(history.history['loss'], label="Train")
+    plt.plot(history.history['val_loss'], label="Val")
+    plt.title("Loss Curve")
+    plt.xlabel("Epoch")
+    plt.ylabel("Loss")
+    plt.legend()
+
+    # Accuracy
+    plt.subplot(1, 2, 2)
+    plt.plot(history.history['accuracy'], label="Train")
+    plt.plot(history.history['val_accuracy'], label="Val")
+    plt.title("Accuracy Curve")
+    plt.xlabel("Epoch")
+    plt.ylabel("Accuracy")
+    plt.legend()
+
+    os.makedirs(PLOTS_DIR + "/training_curves", exist_ok=True)
+    plt.savefig(f"{PLOTS_DIR}/training_curves/{save_as}", bbox_inches='tight')
+    plt.close()
+    print(f"Training curves saved to {PLOTS_DIR}/training_curves/{save_as}")
