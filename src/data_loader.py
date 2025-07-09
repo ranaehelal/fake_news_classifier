@@ -13,6 +13,8 @@ def load_kaggle_data():
     df = pd.concat([fake_df, real_df], ignore_index=True)
     df = df[['title', 'text', 'subject', 'label']]
 
+    df = df.sample(frac=1).reset_index(drop=True)  # shuffle
+
     return df
 def load_fakenewsnet_data():
     base_path = "data/raw/fakenewsnet"
@@ -40,6 +42,9 @@ def load_fakenewsnet_data():
     df = pd.concat([gossip_news, political_news], ignore_index=True)
     df['text'] = df['title']
     df = df[['title', 'text', 'subject', 'label']]
+
+    df = df.sample(frac=1).reset_index(drop=True)  # shuffle
+
     return df
 
 def load_combined_data():
