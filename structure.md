@@ -22,7 +22,7 @@ fake_news_classifier/
 │
 ├── src/                                # Core source code
 │   ├── data_loader.py    	✅           # Load and merge raw datasets
-│   ├── preprocessing.py     ⏳          # Text cleaning and normalization
+│   ├── preprocessing.py     ✅          # Text cleaning and normalization
 │   ├── features.py                     # TF-IDF vectorization, embeddings, etc.
 │   ├── models/                         # Model-specific training scripts
 │   │   ├── logistic_model.py
@@ -30,8 +30,8 @@ fake_news_classifier/
 │   │   ├── lstm_model.py
 │   │   └── bert_model.py
 │   ├── evaluate.py                     # Model evaluation (accuracy, F1, confusion matrix)
-|   ├── eda_utils.py                    
-│   └── utils.py                        # Save/load models, helper functions
+|   ├── eda_utils.py            ⏳        
+│   └── utils.py                ⏳       # Save/load models, helper functions
 │
 ├── experiments/                        # Tracking model results
 │   ├── results.csv                     # Table of metrics for all models
@@ -56,6 +56,6 @@ fake_news_classifier/
 │   └── app.py                          # Streamlit or Gradio app
 │
 ├── README.md                           # Project summary and instructions
-├── requirements.txt                    # List of required packages
+├── requirements.txt      ⏳             # List of required packages
 └── .gitignore                          # Files/folders to exclude from Git
 ```
