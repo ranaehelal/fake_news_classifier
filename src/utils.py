@@ -4,6 +4,7 @@ import pandas as pd
 PROCESSED_DIR = os.path.join("data", "processed")
 
 def save_cleaned_data(df: pd.DataFrame, filename: str):
+    os.makedirs(PROCESSED_DIR, exist_ok=True)
     path = os.path.join(PROCESSED_DIR, filename)
     df.to_csv(path, index=False)
     print(f" Saved cleaned data to {path}")
