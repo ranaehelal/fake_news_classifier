@@ -1,4 +1,4 @@
-'''
+```
 fake_news_classifier/
 │
 ├── data/
@@ -58,4 +58,4 @@ fake_news_classifier/
 ├── README.md                           # Project summary and instructions
 ├── requirements.txt                    # List of required packages
 └── .gitignore                          # Files/folders to exclude from Git
-'''
+```
