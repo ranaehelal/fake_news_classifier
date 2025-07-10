@@ -15,10 +15,10 @@ def train_logistic_model(X_train_vec, y_train, X_val_vec, y_val):
     plot_confusion_matrix(y_val, y_pred, labels=["Fake", "Real"], title="Logistic Regression Confusion Matrix", save_as="logistic_cm.png")
 
     # Save the model
-    save_model(model, os.path.join("models", "logistic_model.h5"))
+    save_model(model, os.path.join("models", "logistic_model.pkl"))
 
 
 
-    print("[INFO] Logistic Regression model trained and saved as 'logistic_model.h5'.")
+    print("[INFO] Logistic Regression model trained and saved as 'logistic_model.pkl'.")
 
     return model
