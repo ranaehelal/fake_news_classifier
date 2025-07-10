@@ -3,6 +3,7 @@ import os
 import joblib
 import pandas as pd
 import pickle
+from tensorflow.keras.models import load_model
 
 PROCESSED_DIR = os.path.join("data", "processed")
 
@@ -38,6 +39,15 @@ def save_pickle(obj, path):
         pickle.dump(obj, f)
         print("tokenizer saved to", path)
 
+
+def load_trained_model(model_path="models/toxic_lstm_model.h5"):
+    try:
+        model = load_model(model_path)
+        print(f"Model loaded from {model_path}")
+        return model
+    except Exception as e:
+        print(f"Error loading model: {e}")
+        return None
 
 
 

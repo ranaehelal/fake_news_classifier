@@ -1,3 +1,7 @@
+import sys
+import  os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 from sklearn.feature_extraction.text import TfidfVectorizer
 
 from src.data_loader import load_kaggle_data
@@ -8,6 +12,7 @@ from src.preprocessing import remove_duplicates_and_missing, clean_for_ml, clean
 import tqdm
 
 from src.utils.utils import save_cleaned_data, split_data, save_pickle
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'  # 0 = all messages, 1 = info, 2 = warnings, 3 = errors
 
 
 def run_pipeline(model: str):
@@ -18,7 +23,7 @@ def run_pipeline(model: str):
 
     if model in ['logistic_regression', 'svm', 'random_forest']:
         # clean data
-        df_cleaned['clean_text'] = df_cleaned['text'].progress_apply(clean_for_ml)
+        df_cleaned['clean_text'] = df_cleaned['text'].apply(clean_for_ml)
         save_cleaned_data(df_cleaned, "kaggle_clean_ml.csv")
 
         # label encoding
@@ -42,7 +47,7 @@ def run_pipeline(model: str):
 
     elif model in ['lstm']:
         # clean data
-        df_cleaned['clean_text'] = df_cleaned['text'].progress_apply(clean_for_dl)
+        df_cleaned['clean_text'] = df_cleaned['text'].apply(clean_for_dl)
         save_cleaned_data(df_cleaned, "kaggle_clean_dl.csv")
 
         # label encoding
@@ -69,8 +74,7 @@ def run_pipeline(model: str):
 
 
 if __name__ == "__main__":
-    run_pipeline("logistic")
-    run_pipeline("lstm")
+    run_pipeline("logistic_regression")
 
 
 
