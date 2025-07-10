@@ -6,7 +6,7 @@ import seaborn as sns
 from sklearn.metrics import confusion_matrix, classification_report
 
 
-MODELS_DIR = "models"
+MODELS_DIR = "../models"
 PLOTS_DIR = "visualizations"
 def generate_wordcloud(df, label, source=None, base_dir="visualizations/wordclouds"):
     """
