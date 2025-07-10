@@ -32,9 +32,12 @@ def clean_for_ml(text):
     text = base_clean(text )
     doc = nlp(text)
     words = [token.lemma_ for token in doc if token.is_alpha and not token.is_stop]
+    print("Cleaned")
     return " ".join(words)
 
 
 def clean_for_dl(text):
     """Cleaner for deep models """
+    print("Cleaned")
+
     return base_clean(text )
