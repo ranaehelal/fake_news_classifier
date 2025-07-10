@@ -1,4 +1,6 @@
 import os
+
+import joblib
 import pandas as pd
 import pickle
 
@@ -20,7 +22,10 @@ def load_cleaned_data(filename: str) -> pd.DataFrame:
     return pd.read_csv(path)
 
 def save_model(model, path):
-    model.save(path)
+   if hasattr(model, "save_model"):
+      model.save_model(path)
+   else:
+       joblib.dump(model, path)
 
 def load_pickle(path):
     with open(path, 'rb') as f:
