@@ -138,15 +138,19 @@ flutter run
 
 ## 📷 Screenshots
 
-Input
-
 Prediction: REAL
 ![Real](UI/true.png)
+
+----------
+
 Prediction: FAKE
 ![Fake](UI/fake.png)
 
+----------
+
 Loading
 ![Fake](UI/loading.png)
+
 
 ----------
 
