@@ -26,6 +26,8 @@ def evaluate_model(model, X_val, y_val, model_name="Model", save_path="experimen
     with open(save_path, "a") as f:
         f.write(f"{model_name},{acc:.4f},{precision:.4f},{recall:.4f},{f1:.4f}\n")
 
+    print('[INFO] Evaluation results saved to:', save_path)
+
     return y_pred
 
 

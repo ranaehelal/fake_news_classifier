@@ -14,6 +14,7 @@ def load_kaggle_data():
     df = df[['title', 'text', 'subject', 'label']]
 
     df = df.sample(frac=1).reset_index(drop=True)  # shuffle
+    print("[INFO] Kaggle data loaded successfully.")
 
     return df
 def load_fakenewsnet_data():

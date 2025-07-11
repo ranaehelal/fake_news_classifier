@@ -28,6 +28,8 @@ def save_model(model, path):
    else:
        joblib.dump(model, path)
 
+
+
 def load_pickle(path):
     with open(path, 'rb') as f:
         print("Loading tokenizer from", path)
@@ -40,7 +42,7 @@ def save_pickle(obj, path):
         print("tokenizer saved to", path)
 
 
-def load_trained_model(model_path="models/toxic_lstm_model.h5"):
+def load_trained_model(model_path="models/lstm_model.h5"):
     try:
         model = load_model(model_path)
         print(f"Model loaded from {model_path}")

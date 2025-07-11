@@ -52,11 +52,8 @@ def train_lstm_model(X_train, y_train, X_val, y_val, tokenizer, max_len=300):
     title='LSTM Model Confusion Matrix',
         save_as='lstm_confusion_matrix.png'
     )
-    save_model(model, os.path.join("models", "lstm_model.h5"))
 
-
-
-
+    model.save("lstm_model.h5")
 
 
     print("[INFO] LSTM model trained and saved.")

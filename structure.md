@@ -16,22 +16,25 @@ fake_news_classifier/
 │
 ├── notebooks/                          # Jupyter Notebooks for analysis and experimentation
 │   ├── 01_eda.ipynb      ✅             # Exploratory Data Analysis
-│   ├── 02_model_training.ipynb    ⏳     # Classical ML models (TF-IDF + Logistic, SVM)
-│   ├── 03_deep_learning_model.ipynb   ⏳ # LSTM or Transformer-based models
+│   ├── 02_model_training.ipynb    ✅      # Classical ML models (TF-IDF + Logistic, SVM)
+│   ├── 03_deep_learning_model.ipynb   ✅  # LSTM or Transformer-based models
 │   └── 04_model_comparison.ipynb       # Metrics comparison, visualizations, summary
 │
 ├── src/                                # Core source code
 │   ├── data_loader.py    	✅           # Load and merge raw datasets
 │   ├── preprocessing.py     ✅          # Text cleaning and normalization
 │   ├── features.py           ✅         # TF-IDF vectorization, embeddings, etc.
-│   ├── models/                 ⏳        # Model-specific training scripts
+│   ├── models/                 ⏳       # Model-specific training scripts
 │   │   ├── logistic_model.py ✅ 
 │   │   ├── svm_model.py X
 │   │   ├── lstm_model.py  ✅ 
 │   │   └── bert_model.pyX
-│   ├── evaluate.py                     # Model evaluation (accuracy, F1, confusion matrix)
-|   ├── eda_utils.py            ✅         
-│   └── utils.py                ⏳       # Save/load models, helper functions
+│   ├── evaluate.py            ✅        # Model evaluation (accuracy, F1, confusion matrix)
+│   ├── run_pipline.py          ✅           # Main script to run the entire pipeline
+|   └── predict_text.py                ✅     # Predict new text using trained models
+|   ├── utils           
+|       ├── eda_utils.py            ✅         
+│       └── utils.py                ⏳       # Save/load models, helper functions
 │
 ├── experiments/                        # Tracking model results
 │   ├── results.csv    ✅                 # Table of metrics for all models
