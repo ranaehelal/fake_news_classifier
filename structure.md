@@ -1,3 +1,4 @@
+```
 fake_news_classifier/
 │
 ├── data/
@@ -63,3 +64,4 @@ fake_news_classifier/
 ├── README.md ✅                   # Project overview
 ├── requirements.txt ✅            # Python dependencies
 └── .gitignore ✅                  # Git ignored files
+```
