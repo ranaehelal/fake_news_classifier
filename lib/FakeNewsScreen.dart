@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -15,24 +17,37 @@ class _FakeNewsScreenState extends State<FakeNewsScreen> {
   Future<void> predictNews(String text) async {
     setState(() {
       _loading = true;
+      _result=null;
     });
 
     final url = Uri.parse('http://127.0.0.1:8000/predict');
-    final response = await http.post(
-      url,
-      headers: {'Content-Type': 'application/json'},
-      body: json.encode({'text': text, 'model': "logistic"}),
-    );
+    try{
+      final response = await http.post(
+        url,
+        headers: {'Content-Type': 'application/json'},
+        body: json.encode({'text': text, 'model': "logistic"}),
+      ).timeout(Duration(seconds: 7));
 
-    if (response.statusCode == 200) {
-      final data = json.decode(response.body);
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        setState(() {
+          _result = data['prediction'];
+        });
+      } else {
+        setState(() {
+          _result = 'Error: ${response.statusCode}';
+        });
+      }
+    }on TimeoutException{
       setState(() {
-        _result = data['prediction'];
-        _loading = false;
+        _result = 'Error: Request timed out';
       });
-    } else {
+    } catch (e) {
       setState(() {
-        _result = 'Error: ${response.statusCode}';
+        _result = 'Error: $e';
+      });
+    } finally {
+      setState(() {
         _loading = false;
       });
     }
@@ -46,7 +61,7 @@ class _FakeNewsScreenState extends State<FakeNewsScreen> {
         title: Text('📰 Fake News Detector'),
         centerTitle: true,
         elevation: 0,
-        backgroundColor: Colors.deepPurple,
+        backgroundColor: Color(0xFF2151AE),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
@@ -61,7 +76,7 @@ class _FakeNewsScreenState extends State<FakeNewsScreen> {
             Container(
               decoration: BoxDecoration(
                 color: Colors.white,
-                border: Border.all(color: Colors.deepPurple, width: 1),
+                border: Border.all(color: Color(0xFF3A40B7), width: 1),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: TextField(
@@ -74,21 +89,28 @@ class _FakeNewsScreenState extends State<FakeNewsScreen> {
                 ),
               ),
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 40),
             _loading
-                ? Center(child: CircularProgressIndicator())
+                ? Column(
+              children: [
+                CircularProgressIndicator(),
+                SizedBox(height: 8),
+                Text('Loading... please wait', style: TextStyle(fontSize: 16)),
+              ],
+            )
                 : ElevatedButton.icon(
-              icon: Icon(Icons.search),
-              label: Text('Analyze'),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.deepPurple,
-                padding: EdgeInsets.symmetric(vertical: 16),
-                textStyle: TextStyle(fontSize: 16),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10)),
-              ),
               onPressed: () => predictNews(_controller.text),
+              icon: Icon(Icons.search, size: 24, color: Colors.white),
+              label: Text('Predict', style: TextStyle(fontSize: 18,color: Colors.white)),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Color(0xFF2151AE),
+                padding: EdgeInsets.symmetric(vertical: 16),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
             ),
+
             SizedBox(height: 20),
             if (_result != null)
               Container(

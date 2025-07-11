@@ -15,6 +15,8 @@ class FakeNewsApp extends StatelessWidget {
       title: 'Fake News Detector',
       theme: ThemeData(primarySwatch: Colors.deepPurple),
       home: FakeNewsScreen(),
+      debugShowCheckedModeBanner: false,
+
     );
   }
 }
